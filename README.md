@@ -38,10 +38,13 @@ jobs:
         OVH_HOSTING_DOMAIN: ssh.clusterXXX.hosting.ovh.net
         REPOSITORY_NAME: my-repo
         REPOSITORY_URL: https://github.com/me/my-repo.git
+        DOT_ENV: ${{ secrets.DOT_ENV }}
 ```
 
 Now simply adjust the last three listed environment variables. Visit your OVH hosting plans control panel to get the correct SSH domain.
 Don't forget to create two secrets at your repository with the names `OVH_HOSTING_USER` + `OVH_HOSTING_PASSWORD` and the appropriate credentials as the value. Use a strong password!
+
+The $DOT_ENV vairable will be copied inside the `./backend/.env` file. This is designed for the https://github.com/iscsc/iscsc.fr repo.
 
 With this GitHub Actions configuration everytime you push new changes to your repository, the ovh-deploy-hosting-action will login to your hosting account, delete all existing files at the users home directory and get the newest version of your repo/code. Additionally the action will ensure to copy the needed `.htaccess` (so keep them in your repo) and delete unnecessary files like `LICENSE` & `README.md`.
 
